@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<bean id="LogAop" class="com.napmkmk.test.LogAop">
+	
+	</bean>
+	<!-- aop 설정하기 -->
+	<aop:config>
+		<aop:aspect id="logger" ref="LogAop">
+			<aop:pointcut id="publicM" expression="within(com.napmkmk.test.*)" />
+			<aop:around method="loggerAop" pointcut-ref = "publicM"></aop:around>
+			<!-- 
+			     <aop:before> : 메소드 실행 전에 advice실행
+				 <aop:after-returning> : 정상적으로 메소드 실행 후에 advice실행
+				 <aop:after-throwing> : 메소드 실행중 exception 발생시 advice실행
+			   	 <aop:after> : 메소드 실행중 exception 이 발생하여도 advice실행
+				 <aop:around> : 메서드 실행 전/후 및 exception 발생시 advice실행 
+				 -->
+				<!-- 트랜젝션 -->
+		</aop:aspect>
+	</aop:config>
+	
+	
+	<bean id="student" class="com.napmkmk.test.Student">
+		<property name="name" value="홍길동"></property>
+		<property name="age" value="30"></property>
+		<property name="gradeNum" value="4"></property>
+	</bean>
+	
+	<bean id="soldier" class="com.napmkmk.test.Soldier">
+		<property name="name" value="이순신"></property>
+		<property name="age" value="29"></property>
+		<property name="grade" value="장군"></property>
+	</bean>
+
+</beans>
